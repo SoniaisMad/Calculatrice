@@ -16,7 +16,7 @@ body{
 
 @font-face{
 	font-family: "Digit";
-	src: url("police.ttf");
+	src: url("police.TTF");
 }
 
 #screen {

@@ -1,6 +1,5 @@
 var app = {
 	tab:[],
-	tab2:[],
 	init: function(){
 		console.log('initialisation');
 		//recuperation des boutons chiffrés
@@ -38,15 +37,12 @@ var app = {
 
 	getVal: function(evt){
 		app.content= evt.target.textContent;
-		//console.log(content);
+		console.log(app.content);
 
-		app.screen.textContent += app.content;
+	 app.screen.textContent += app.content;
 
-
-
-
-		app.tab.push(app.content);
-		console.log(app.tab);
+		//app.tab.push(app.content);
+		//console.log(app.tab);
 
 		app.determine();
 
@@ -54,148 +50,46 @@ var app = {
 	},
 
 	determine:function(){
-
-		for(i=0;i<app.tab.length;i++){
-			if(app.tab[i]==='+'){
-			app.position= i;
-			console.log(app.position);
-			app.addition();
-		}
-		if(app.tab[i]==='-'){
-			app.position= i;
-			app.substraction();
-
-		}
-		if(app.tab[i]==='*'){
-			app.position= i;
-			app.multiplication();
-		}
-		if(app.tab[i]==='/'){
-			app.position= i;
-			app.division();
-
-		}
-		}
-		/*if(app.tab[1]==='+'){
-			app.addition();
-		}
-		if(app.tab[1]==='-'){
-			app.substraction();
-		}
-		if(app.tab[1]==='*'){
-			app.multiplication();
-		}
-		if(app.tab[1]==='/'){
-			app.division();
-		}*/
-
-
-	},
-	numbersToCalculate: function(){
-		if(app.position===1){
-			app.nb1 = Number(app.tab[0]);
-
-			app.nb2= Number(app.tab[app.position+1]);
-			if(app.tab.length===4){
-				app.nb2= Number(app.tab[app.position+1]+app.tab[app.position+2]);
-			}
-			if(app.tab.length===5){
-				app.nb2= Number(app.tab[app.position+1]+app.tab[app.position+2]+app.tab[app.position+3]);
-			}
-			if(app.tab.length===6){
-				app.nb2= Number(app.tab[app.position+1]+app.tab[app.position+2]+app.tab[app.position+3]);
-			}
-
-
-		}
-		if(app.position===2){
-			app.nb1 = Number(app.tab[0]+app.tab[1]);
-			console.log(app.nb1);
-			app.nb2= Number(app.tab[app.position +1]);
-			if(app.tab.length===4){
-				app.nb2= Number(app.tab[app.position+1]);
-
-			}
-			if(app.tab.length===5){
-				app.nb2= Number(app.tab[app.position+1]+app.tab[app.position+2]);
-			}
-			if(app.tab.length===6){
-				app.nb2= Number(app.tab[app.position+1]+app.tab[app.position+2]+app.tab[app.position+3]);
-			}
-
-
-		}
-		if(app.position===3){
-			app.nb1 = Number(app.tab[0]+app.tab[1]+app.tab[2]);
-			console.log(app.nb1);
-			app.nb2= Number(app.tab[app.position +1]);
-			if(app.tab.length===5){
-				app.nb2= Number(app.tab[app.position+1]);
-
-			}
-			if(app.tab.length===6){
-				app.nb2= Number(app.tab[app.position+1]+app.tab[app.position+2]);
-			}
-			if(app.tab.length===7){
-				app.nb2= Number(app.tab[app.position+1]+app.tab[app.position+2]+app.tab[app.position+3]);
-			}
-
-			}
-
-		if(app.position===4){
-			app.nb1 = Number(app.tab[0]+app.tab[1]+app.tab[2]+app.tab[3]);
-			console.log(app.nb1);
-			app.nb2= Number(app.tab[app.position +1]);
-			if(app.tab.length===7){
-				app.nb2= Number(app.tab[app.position+1]);
-
-			}
-			if(app.tab.length===8){
-				app.nb2= Number(app.tab[app.position+1]+app.tab[app.position+2]);
-			}
-			if(app.tab.length===9){
-				app.nb2= Number(app.tab[app.position+1]+app.tab[app.position+2]+app.tab[app.position+3]+app.tab[app.position+4]);
-			}
-
-			}
-
-
+    console.log('det');
+		if(app.screen.textContent.indexOf("+") !== -1){
+      app.operation(app.screen.textContent, "+");
+    }
+    if(app.screen.textContent.indexOf("-") !== -1){
+      app.operation(app.screen.textContent, "-");
+    }
+    if(app.screen.textContent.indexOf("/") !== -1){
+      app.operation(app.screen.textContent, "/");
+    }
+    if(app.screen.textContent.indexOf("*") !== -1){
+      app.operation(app.screen.textContent, "*");
+    }
 
 	},
 
-	addition: function(){
 
-		app.numbersToCalculate();
-		app.result= app.nb1 + app.nb2;
-		//app.tab=[];
-
-
-
-	},
-
-	substraction:function(){
-		app.numbersToCalculate();
-		app.result= app.nb1 - app.nb2;
-	},
-
-	multiplication: function(){
-		app.numbersToCalculate();
-		app.result= app.nb1 * app.nb2;
-
-	},
-
-	division: function(){
-		app.numbersToCalculate();
-		app.result= app.nb1 / app.nb2;
-
-
-	},
+	operation: function(value, symbol){
+    console.log('op');
+    var numbers= app.screen.textContent.split(symbol);
+    console.log(numbers);
+    if(symbol==="+"){
+      app.result= parseFloat(numbers[0])+parseFloat(numbers[1]);
+    }
+    if(symbol==="-"){
+      app.result= numbers[0]-numbers[1];
+    }
+    if(symbol==="*"){
+      app.result= numbers[0]*numbers[1];
+    }
+    if(symbol==="/"){
+      app.result= numbers[0]/numbers[1];
+    }
+  },
 	total:function(){
 		app.screen.textContent=app.result;
 	},
 	clearScreen:function(){
 		app.screen.textContent='';
-		app.tab= [];
+
 	}
 }
 document.addEventListener('DOMContentLoaded', app.init);
